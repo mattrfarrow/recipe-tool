@@ -10,7 +10,7 @@ object Main {
     println("Recipe Thing 0.1")
     println()
 
-    val recipe1 = Recipe("chickpea-curry",
+    val recipe1 = Recipe("chickpea_curry",
       List(
         ingredient(number(1), "onion"),
         ingredient(slosh(), "vegetable oil"),
@@ -34,10 +34,10 @@ object Main {
     val allRecipesByName = allRecipes.map(recipe => (recipe.name, recipe)).toMap
 
     val recipeNames = args
-    val recipesAndQuantities = args.map(ArgsParser.parseArgument)
-    //val recipes = recipesAndQuantities.map(recipeAndQuantity => allRecipesByName.getOrElse(recipeAndQuantity.recipeName, throw new Exception("No recipe with name "+/recipeName)))
+    val recipeNamesAndQuantities = args.map(ArgsParser.parseArgument)
+    val recipesAndQuantities = recipeNamesAndQuantities.map(r => RecipeAndMultiples(allRecipesByName.getOrElse(r.recipeName, throw new Exception("No recipe with name "+r.recipeName)), r.multiples))
 
-    val merged = IngredientListMerger.merge(allRecipes)
+    val merged = IngredientListMerger.merge(recipesAndQuantities)
 
     merged.foreach { ingredientWithRecipes =>
       println(ingredientWithRecipes.sizedIngredient + "   (for " + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")

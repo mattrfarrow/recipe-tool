@@ -12,7 +12,7 @@ class TestIngredientListMerge extends FlatSpec {
     val recipe2 = Recipe("cheese sandwich",
       List(IngredientQuantity(Ingredient("cheese"), Quantity(5, MeasurementUnit.g))))
 
-    val actual = IngredientListMerger.merge(List(recipe1, recipe2))
+    val actual = IngredientListMerger.merge(List(RecipeAndMultiples(recipe1, 1), RecipeAndMultiples(recipe2, 1)))
     val expected = ""
 
     actual should contain only IngredientQuantityWithContributingRecipes(
@@ -26,7 +26,7 @@ class TestIngredientListMerge extends FlatSpec {
     val recipe2 = Recipe("cheese-sandwich",
       List(IngredientQuantity(Ingredient("bread"), Quantity(5, MeasurementUnit.g))))
 
-    val actual = IngredientListMerger.merge(List(recipe1, recipe2))
+    val actual = IngredientListMerger.merge(List(RecipeAndMultiples(recipe1, 1), RecipeAndMultiples(recipe2, 1)))
 
     actual.size should equal(2)
 

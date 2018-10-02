@@ -2,8 +2,12 @@ package recipes
 
 object IngredientListMerger {
 
-  def merge(recipes: Seq[Recipe]): Seq[IngredientQuantityWithContributingRecipes] = {
-    val ingredientsAndRecipes = recipes.flatMap(recipe => recipe.ingredients.map(sizedIngredient => IngredientQuantityForRecipe(sizedIngredient, recipe)))
+  def merge(recipes: Seq[RecipeAndMultiples]): Seq[IngredientQuantityWithContributingRecipes] = {
+    val ingredientsAndRecipes = recipes.flatMap(recipe => recipe.recipe.ingredients.map(sizedIngredient => {
+      val quantity = sizedIngredient.quantity
+      val scaledQuantity = Quantity(quantity.numberOfUnits*recipe.multiples, quantity.measurementUnit)
+      IngredientQuantityForRecipe(sizedIngredient.copy(quantity = scaledQuantity), recipe.recipe)
+    }))
     val ingredientUsages = ingredientsAndRecipes.groupBy(_.sizedIngredient.ingredient).values.toList
 
     ingredientUsages.flatMap(combineUsagesOfIngredient)
