@@ -9,7 +9,8 @@ class TestArgsParser extends FlatSpec {
   "The args parser" should "parse single recipes" in {
     ArgsParser.parseArgument("curry*5") should equal(RecipeNameAndMultiples("curry",5))
   }
-  "The args parser" should "parse recipe multiples" in {
+
+  it should "parse recipe multiples" in {
       ArgsParser.parseArgument("curry") should equal(RecipeNameAndMultiples("curry",1))
   }
 

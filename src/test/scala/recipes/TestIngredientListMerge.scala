@@ -6,7 +6,7 @@ import org.scalatest.Matchers._
 
 class TestIngredientListMerge extends FlatSpec {
 
-  "The merger" should "merge quantities of the same ingredient" in {
+  "IngredientMerger" should "merge quantities of the same ingredient" in {
     val recipe1 = Recipe("chickpea curry",
       List(IngredientQuantity(Ingredient("cheese"), Quantity(20, MeasurementUnit.g))))
     val recipe2 = Recipe("cheese sandwich",
@@ -20,7 +20,7 @@ class TestIngredientListMerge extends FlatSpec {
       List(recipe1, recipe2))
   }
 
-  "The merger" should "not merge different ingredients" in {
+  it should "not merge different ingredients" in {
     val recipe1 = Recipe("chickpea-curry",
       List(IngredientQuantity(Ingredient("cheese"), Quantity(20, MeasurementUnit.g))))
     val recipe2 = Recipe("cheese-sandwich",
