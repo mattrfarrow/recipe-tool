@@ -6,6 +6,7 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     println("Recipe Thing 0.1")
+    println("----------------")
     println()
 
     val allRecipesByName = RecipeData.allRecipes.map(recipe => (recipe.name, recipe)).toMap
