@@ -125,13 +125,15 @@ object RecipeData {
   val allRecipes = List(
     breakfast,
     chickpea_curry, chilli, aubergine_casserole, tofu_noodle_soup,
-    lentil_bolognese,// saag_tofu, blackbean_burritos,
+    lentil_bolognese, saag_tofu,// blackbean_burritos,
     seeded_wholemeal_bread,
     regular_items)
 
-  // add carbs
-  // side veg?
   // convert tsp and tbsp into grams
+  // blackbean burritos
+  // account for how some of these recipes get doubled
+  // side veg?
+  // add carbs
   // convert ml into litres?
   // make regular items make sense
 
