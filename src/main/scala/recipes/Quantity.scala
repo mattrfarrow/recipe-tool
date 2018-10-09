@@ -10,8 +10,16 @@ case class Quantity(numberOfUnits: Double, measurementUnit: MeasurementUnit) {
 object Quantity {
 
   def grams(g: Int): Quantity = Quantity(g, MeasurementUnit.g)
+  def ml(m: Int): Quantity = Quantity(m, MeasurementUnit.ml)
   def number(g: Int): Quantity = Quantity(g, MeasurementUnit.number)
+
   def tsp(g: Double): Quantity = Quantity(g, MeasurementUnit.tsp)
+  def tbsp(g: Double): Quantity = Quantity(g, MeasurementUnit.tbsp)
+
   def slosh(): Quantity = Quantity(1, MeasurementUnit.slosh)
-  def tins(g: Int): Quantity = Quantity(g, MeasurementUnit.tins)
+  def some(): Quantity = Quantity(1, MeasurementUnit.some)
+  def tins(g: Double): Quantity = Quantity(g, MeasurementUnit.tins)
+  def cups(g: Double): Quantity = Quantity(g, MeasurementUnit.tins)
+
+  def cloves(n: Int): Quantity = Quantity(n, MeasurementUnit.clove)
 }
