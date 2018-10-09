@@ -25,9 +25,8 @@ object Main {
 
     val mergedIngredients = IngredientListMerger.merge(recipesAndQuantities)
 
-    def sort(s1: IngredientQuantityWithContributingRecipes, s2: IngredientQuantityWithContributingRecipes) = {
-      s1.usages.map(_.name).mkString(",").compareTo(s2.usages.map(_.name).mkString(",")) < 0
-    }
+    printIngredientsWithMissingWeightInfo(RecipeData.allRecipes)
+    println()
 
     val freshnessGroups = mergedIngredients.groupBy(_.sizedIngredient.freshness)
 
@@ -37,6 +36,9 @@ object Main {
 
       println(freshness.name.capitalize + ":")
 
+      def sort(s1: IngredientQuantityWithContributingRecipes, s2: IngredientQuantityWithContributingRecipes) = {
+        s1.usages.map(_.name).mkString(",").compareTo(s2.usages.map(_.name).mkString(",")) < 0
+      }
       val mergedIngredientsSorted = ingredientsThisFresh.sortWith(sort)
 
       mergedIngredientsSorted.foreach { ingredientWithRecipes =>
@@ -45,6 +47,15 @@ object Main {
       }
       println()
     }
+  }
+
+  private def printIngredientsWithMissingWeightInfo(recipes: List[Recipe]) {
+    val ingredientsInTspOrTbsp: Set[IngredientQuantity] = recipes.flatMap(
+      _.ingredients
+        .filter(i => i.quantity.measurementUnit==MeasurementUnit.tbsp || i.quantity.measurementUnit==MeasurementUnit.tsp)
+    ).toSet
+
+    ingredientsInTspOrTbsp.foreach(i => println(i.ingredient.name + " is in "+i.quantity.measurementUnit.name))
   }
 
 }
