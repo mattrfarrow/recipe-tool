@@ -29,10 +29,21 @@ object Main {
       s1.usages.map(_.name).mkString(",").compareTo(s2.usages.map(_.name).mkString(",")) < 0
     }
 
-    val mergedIngredientsSorted = mergedIngredients.sortWith(sort)
+    val freshnessGroups = mergedIngredients.groupBy(_.sizedIngredient.freshness)
 
-    mergedIngredientsSorted.foreach { ingredientWithRecipes =>
-      println(ingredientWithRecipes.sizedIngredient + "   (for " + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")
+    freshnessGroups.foreach { ingredients =>
+      val freshness = ingredients._1
+      val ingredientsThisFresh = ingredients._2
+
+      println(freshness.name.capitalize + ":")
+
+      val mergedIngredientsSorted = ingredientsThisFresh.sortWith(sort)
+
+      mergedIngredientsSorted.foreach { ingredientWithRecipes =>
+        println(ingredientWithRecipes.sizedIngredient + "   (for " + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")
+
+      }
+      println()
     }
   }
 

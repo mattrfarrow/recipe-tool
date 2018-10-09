@@ -16,15 +16,19 @@ object IngredientListMerger {
   private def combineUsagesOfIngredient(ingredientsWithRecipes: Seq[IngredientQuantityForRecipe]): Seq[IngredientQuantityWithContributingRecipes] = {
 
     val reducedToGramsWherePossible = ingredientsWithRecipes.map(getQuantityWithBetterUnit)
-    val usagesByMeasurementUnit = reducedToGramsWherePossible.groupBy(_.sizedIngredient.quantity.measurementUnit)
-    val unitsToTotal: Map[MeasurementUnit, Double] =
+    val usagesByMeasurementUnit = reducedToGramsWherePossible.groupBy(i => (i.sizedIngredient.quantity.measurementUnit, i.sizedIngredient.freshness))
+
+    val unitsToTotal: Map[(MeasurementUnit, Freshness), Double] =
       usagesByMeasurementUnit.mapValues(quantitiesForRecipes => sumQuantities(quantitiesForRecipes))
 
     val ingredient = ingredientsWithRecipes.head.sizedIngredient.ingredient
 
-    unitsToTotal.map { case (unit, total) =>
-      IngredientQuantityWithContributingRecipes(IngredientQuantity(ingredient, Quantity(total, unit)), reducedToGramsWherePossible.map(_.recipe)) }
-      .toList
+    unitsToTotal.map { case (unitAndFreshnessPair, total) =>
+      IngredientQuantityWithContributingRecipes(
+        IngredientQuantity(ingredient, Quantity(total, unitAndFreshnessPair._1), unitAndFreshnessPair._2),
+        reducedToGramsWherePossible.map(_.recipe)
+      )
+    }.toList
   }
 
   private def sumQuantities(recipes: Seq[IngredientQuantityForRecipe]) = recipes.map(x => x.sizedIngredient.quantity.numberOfUnits).sum
