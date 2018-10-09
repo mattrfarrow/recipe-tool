@@ -15,7 +15,7 @@ object IngredientListMerger {
 
   private def combineUsagesOfIngredient(ingredientsWithRecipes: Seq[IngredientQuantityForRecipe]): Seq[IngredientQuantityWithContributingRecipes] = {
 
-    val reducedToGramsWherePossible = ingredientsWithRecipes.map(reduceToGramsWherePossible)
+    val reducedToGramsWherePossible = ingredientsWithRecipes.map(getQuantityWithBetterUnit)
     val usagesByMeasurementUnit = reducedToGramsWherePossible.groupBy(_.sizedIngredient.quantity.measurementUnit)
     val unitsToTotal: Map[MeasurementUnit, Double] =
       usagesByMeasurementUnit.mapValues(quantitiesForRecipes => sumQuantities(quantitiesForRecipes))
@@ -29,13 +29,28 @@ object IngredientListMerger {
 
   private def sumQuantities(recipes: Seq[IngredientQuantityForRecipe]) = recipes.map(x => x.sizedIngredient.quantity.numberOfUnits).sum
 
-  private def reduceToGramsWherePossible(sizedIngredientInRecipe: IngredientQuantityForRecipe): IngredientQuantityForRecipe = {
+  private def getQuantityWithBetterUnit(sizedIngredientInRecipe: IngredientQuantityForRecipe): IngredientQuantityForRecipe = {
     val quantity = sizedIngredientInRecipe.sizedIngredient.quantity
     val adjustedQuantity = quantity.measurementUnit.gramsEquivalent match {
       case Some(gramsEquiv) => Quantity(gramsEquiv * quantity.numberOfUnits, MeasurementUnit.g)
       case None => quantity
     }
-    val newSizedIngredient = sizedIngredientInRecipe.sizedIngredient.copy(quantity = quantity)
+
+    val adjustedQuantityMaybeInKg =
+      if(adjustedQuantity.measurementUnit==MeasurementUnit.g && adjustedQuantity.numberOfUnits>1000) {
+        Quantity(adjustedQuantity.numberOfUnits / 1000, MeasurementUnit.kg)
+      } else {
+        adjustedQuantity
+    }
+
+    val adjustedQuantityMaybeInLitres =
+      if(adjustedQuantityMaybeInKg.measurementUnit==MeasurementUnit.ml && adjustedQuantityMaybeInKg.numberOfUnits>1000) {
+        Quantity(adjustedQuantityMaybeInKg.numberOfUnits / 1000, MeasurementUnit.litres)
+      } else {
+        adjustedQuantityMaybeInKg
+      }
+
+    val newSizedIngredient = sizedIngredientInRecipe.sizedIngredient.copy(quantity = adjustedQuantityMaybeInLitres)
     sizedIngredientInRecipe.copy( sizedIngredient = newSizedIngredient)
 
   }
