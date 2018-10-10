@@ -9,7 +9,9 @@ object Main {
     println("----------------")
     println()
 
-    val allRecipesByName = RecipeData.allRecipes.map(recipe => (recipe.name, recipe)).toMap
+    val allRecipesByName = RecipeData.allRecipes
+      .map(populateIngredients(_, Ingredients.ingredientsMap))
+      .map(recipe => (recipe.name, recipe)).toMap
 
     val recipeNames = args
     val recipeNamesAndQuantities = args.map(ArgsParser.parseArgument)
@@ -20,15 +22,15 @@ object Main {
     }
     println()
 
-
     val recipesAndQuantities = recipeNamesAndQuantities.map(r => RecipeAndMultiples(allRecipesByName.getOrElse(r.recipeName, throw new Exception("No recipe with name "+r.recipeName)), r.multiples))
 
     val mergedIngredients = IngredientListMerger.merge(recipesAndQuantities)
 
-    printIngredientsWithMissingWeightInfo(RecipeData.allRecipes)
-    println()
+    val mergedAndSimplifiedIngredients = mergedIngredients.map(i =>
+      IngredientQuantityWithContributingRecipes(QuantityConvertor.convertSpoonsToGrams(i.sizedIngredient), i.usages)
+    )
 
-    val freshnessGroups = mergedIngredients.groupBy(_.sizedIngredient.freshness)
+    val freshnessGroups = mergedAndSimplifiedIngredients.groupBy(_.sizedIngredient.freshness)
 
     freshnessGroups.foreach { ingredients =>
       val freshness = ingredients._1
@@ -49,13 +51,8 @@ object Main {
     }
   }
 
-  private def printIngredientsWithMissingWeightInfo(recipes: List[Recipe]) {
-    val ingredientsInTspOrTbsp: Set[IngredientQuantity] = recipes.flatMap(
-      _.ingredients
-        .filter(i => i.quantity.measurementUnit==MeasurementUnit.tbsp || i.quantity.measurementUnit==MeasurementUnit.tsp)
-    ).toSet
-
-    ingredientsInTspOrTbsp.foreach(i => println(i.ingredient.names + " is in "+i.quantity.measurementUnit.name))
+  def populateIngredients(recipe: Recipe, ingredientData: Map[String, Ingredient]): Recipe = {
+    recipe.copy(ingredients = recipe.ingredients.map(in => in.copy(ingredient = ingredientData.getOrElse(in.ingredient.preferredName, in.ingredient))))
   }
 
 }

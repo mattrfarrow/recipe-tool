@@ -28,4 +28,6 @@ object Ingredients {
     Ingredient(Seq("curry powder"), Some(3)),
     Ingredient(Seq("poppy seeds"), Some(3))
   )
+
+  val ingredientsMap: Map[String, Ingredient] = ingredients.flatMap(i => i.names.map(name => (name, i))).toMap
 }
