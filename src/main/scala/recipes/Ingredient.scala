@@ -1,3 +1,5 @@
 package recipes
 
-case class Ingredient(name: String)
+case class Ingredient(names: Seq[String], gramsPerTsp: Option[Int]=None) {
+  def preferredName: String = names.head
+}

@@ -55,7 +55,7 @@ object Main {
         .filter(i => i.quantity.measurementUnit==MeasurementUnit.tbsp || i.quantity.measurementUnit==MeasurementUnit.tsp)
     ).toSet
 
-    ingredientsInTspOrTbsp.foreach(i => println(i.ingredient.name + " is in "+i.quantity.measurementUnit.name))
+    ingredientsInTspOrTbsp.foreach(i => println(i.ingredient.names + " is in "+i.quantity.measurementUnit.name))
   }
 
 }
