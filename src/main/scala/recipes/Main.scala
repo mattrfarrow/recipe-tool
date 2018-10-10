@@ -9,10 +9,6 @@ object Main {
     println("----------------")
     println()
 
-    val allRecipesByName = RecipeData.allRecipes
-      .map(populateIngredients(_, Ingredients.ingredientsMap))
-      .map(recipe => (recipe.name, recipe)).toMap
-
     val recipeNames = args
     val recipeNamesAndQuantities = args.map(ArgsParser.parseArgument)
 
@@ -22,15 +18,9 @@ object Main {
     }
     println()
 
-    val recipesAndQuantities = recipeNamesAndQuantities.map(r => RecipeAndMultiples(allRecipesByName.getOrElse(r.recipeName, throw new Exception("No recipe with name "+r.recipeName)), r.multiples))
+    val combinedRecipes: Seq[IngredientQuantityWithContributingRecipes] = combineRecipes(recipeNamesAndQuantities)
 
-    val mergedIngredients = IngredientListMerger.merge(recipesAndQuantities)
-
-    val mergedAndSimplifiedIngredients = mergedIngredients.map(i =>
-      IngredientQuantityWithContributingRecipes(QuantityConvertor.convertSpoonsToGrams(i.sizedIngredient), i.usages)
-    )
-
-    val freshnessGroups = mergedAndSimplifiedIngredients.groupBy(_.sizedIngredient.freshness)
+    val freshnessGroups = combinedRecipes.groupBy(_.sizedIngredient.freshness)
 
     freshnessGroups.foreach { ingredients =>
       val freshness = ingredients._1
@@ -45,14 +35,27 @@ object Main {
 
       mergedIngredientsSorted.foreach { ingredientWithRecipes =>
         println(ingredientWithRecipes.sizedIngredient + "   (for " + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")
-
       }
       println()
     }
   }
 
-  def populateIngredients(recipe: Recipe, ingredientData: Map[String, Ingredient]): Recipe = {
-    recipe.copy(ingredients = recipe.ingredients.map(in => in.copy(ingredient = ingredientData.getOrElse(in.ingredient.preferredName, in.ingredient))))
+  private def combineRecipes(recipeNamesAndQuantities: Array[RecipeNameAndMultiples]) = {
+    val allRecipesByName = RecipeData.allRecipes
+      .map(populateIngredients(_, Ingredients.ingredientsMap))
+      .map(recipe => (recipe.name, recipe)).toMap
+
+    val recipesAndQuantities = recipeNamesAndQuantities.map(r => RecipeAndMultiples(allRecipesByName.getOrElse(r.recipeName, throw new Exception("No recipe with name " + r.recipeName)), r.multiples))
+
+    val mergedIngredients = IngredientListMerger.merge(recipesAndQuantities)
+
+    val mergedAndSimplifiedIngredients = mergedIngredients.map(i =>
+      IngredientQuantityWithContributingRecipes(QuantityConvertor.convertSpoonsToGrams(i.sizedIngredient), i.usages)
+    )
+    mergedAndSimplifiedIngredients
   }
+
+  private def populateIngredients(recipe: Recipe, ingredientData: Map[String, Ingredient]): Recipe =
+    recipe.copy(ingredients = recipe.ingredients.map(in => in.copy(ingredient = ingredientData.getOrElse(in.ingredient.preferredName, in.ingredient))))
 
 }
