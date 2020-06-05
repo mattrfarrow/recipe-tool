@@ -3,7 +3,7 @@ package recipes
 object ArgsParser {
 
   def parseArgument(arg: String): RecipeNameAndMultiples = {
-    val elements = arg.split(Array('*'))
+    val elements = arg.split(':')
     if(elements.isEmpty) {
       throw new RuntimeException("Error parsing param string, found no elements in: "+arg)
     }
