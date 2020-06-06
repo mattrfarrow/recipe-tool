@@ -3,10 +3,10 @@ package recipes
 case class IngredientQuantity(ingredient: Ingredient, quantity: Quantity, freshness: Freshness) {
 
   override def toString: String =
-    if(true || freshness==Freshness.fresh) {
+    if(quantity.toString.length()>0) {
       ingredient.preferredName.capitalize + ", " + quantity
     } else {
-      ingredient.preferredName.capitalize + ", " + freshness.name + ", " + quantity
+      ingredient.preferredName.capitalize
     }
 
 
