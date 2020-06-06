@@ -19,8 +19,9 @@ object Main {
     println()
 
     val combinedRecipes: Seq[IngredientQuantityWithContributingRecipes] = combineRecipes(recipeNamesAndQuantities)
+    println()
 
-    val freshnessGroups = combinedRecipes.groupBy(_.sizedIngredient.freshness)
+    val freshnessGroups = combinedRecipes.groupBy(_.sizedIngredient.freshness).toSeq.sortBy(g => g._1.sortOrder)
 
     freshnessGroups.foreach { ingredients =>
       val freshness = ingredients._1
