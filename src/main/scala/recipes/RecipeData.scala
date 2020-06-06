@@ -65,9 +65,9 @@ object RecipeData {
 
   val tofu_noodle_soup: Recipe = Recipe("tofu_noodle_soup",
     List(
-      ingredient(number(2), "pack tofu"),
+      ingredient(packs(2), "tofu"),
       ingredient(number(2), "wholewheat noodles", store_cupboard),
-      ingredient(number(2), "pack pak choi"),
+      ingredient(packs(2), "pak choi"),
       ingredient(packs(2), "tofu"),
       ingredient(number(2), "stock", store_cupboard)
 
@@ -84,11 +84,9 @@ object RecipeData {
 
   val regular_items: Recipe = Recipe("regular_items",
     List(
-      ingredient(number(1), "whole_milk"),
-      ingredient(number(1), "apple"),
-      ingredient(number(1), "banana"),
-      ingredient(number(1), "easy peeler"),
-      ingredient(number(1), "weetabix")
+      ingredient(some(), "whole_milk"),
+      ingredient(packs(1), "apple"),
+      ingredient(packs(1), "weetabix", store_cupboard)
       //Tea,
       //hippy tea
     )
@@ -110,7 +108,7 @@ object RecipeData {
 
   lazy val saag_tofu: Recipe = Recipe("saag_tofu",
     List(
-      ingredient(number(2), "pack tofu"),
+      ingredient(packs(2), "tofu"),
       ingredient(number(1), "onion"),
       ingredient(grams(400), "spinach"), // quantity?
       ingredient(tsp(1), "fresh ginger"),// quantity?

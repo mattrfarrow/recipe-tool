@@ -34,7 +34,8 @@ object Main {
       val mergedIngredientsSorted = ingredientsThisFresh.sortWith(sort)
 
       mergedIngredientsSorted.foreach { ingredientWithRecipes =>
-        println(ingredientWithRecipes.sizedIngredient + "   (for " + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")
+        val ingredientString:String = ingredientWithRecipes.sizedIngredient.toString().padTo(25, ' ')
+        println(ingredientString + " (" + ingredientWithRecipes.usages.map(_.name).mkString(", ") + ")")
       }
       println()
     }
