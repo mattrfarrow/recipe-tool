@@ -9,6 +9,7 @@ object MeasurementUnit {
   val some = new MeasurementUnit("some", None)
   val tins = new MeasurementUnit("tins", None)
   val cups = new MeasurementUnit("cups", None)
+  val packs = new MeasurementUnit("packs", None)
 
   val g = new MeasurementUnit("g", None)
   val ml = new MeasurementUnit("ml", None)
@@ -16,5 +17,7 @@ object MeasurementUnit {
   val kg = new MeasurementUnit("kg",  Some(1000))
   val clove = new MeasurementUnit("clove", None)
   val number = new MeasurementUnit( "number", None)
+
+
 
 }
