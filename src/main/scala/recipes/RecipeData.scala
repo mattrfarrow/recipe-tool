@@ -12,7 +12,7 @@ object RecipeData {
       ingredient(cloves(2), "garlic"),
       ingredient(slosh(),   "vegetable oil", store_cupboard),
       ingredient(grams(320), "red lentils", dried),
-      ingredient(tins(2), "chopped tomatoes", store_cupboard),
+      ingredient(tins(2), "tomatoes (chopped)", store_cupboard),
       ingredient(grams(400), "brown pasta", dried)
       //optional additional veg like fresh tomatoes, red peppers, carrots, celery or mushrooms
     )
@@ -26,9 +26,9 @@ object RecipeData {
       ingredient(tsp(3), "vegetable oil", store_cupboard),
       ingredient(number(1), "chilli or jalapeno"),
       ingredient(number(5), "sun dried tomatoes", dried),
-      ingredient(cups(0.5), "vegetable stock", store_cupboard),
+      ingredient(some(), "stock powder", store_cupboard),
       ingredient(tins(0.5), "sweetcorn", store_cupboard),
-      ingredient(tins(1), "chopped tomatoes", store_cupboard),
+      ingredient(tins(1), "tomatoes (chopped)", store_cupboard),
       ingredient(tins(1), "green lentils", store_cupboard),
       ingredient(tbsp(1), "tomato puree", store_cupboard),
       ingredient(tsp(1), "cumin", dried),
@@ -69,7 +69,7 @@ object RecipeData {
       ingredient(number(2), "wholewheat noodles", store_cupboard),
       ingredient(packs(2), "pak choi"),
       ingredient(packs(2), "tofu"),
-      ingredient(number(2), "stock", store_cupboard)
+      ingredient(some(), "stock powder", store_cupboard)
 
     ))
 
@@ -119,7 +119,7 @@ object RecipeData {
 
   lazy val stir_fry: Recipe = Recipe("stir_fry",
     List(
-      ingredient(packs(1), "noodles"),
+      ingredient(packs(1), "noodles", store_cupboard),
       ingredient(packs(2), "tofu"),
       ingredient(some(), "spring onions"),
       ingredient(some(), "garlic"),
@@ -134,19 +134,19 @@ object RecipeData {
       ingredient(number(4), "veggie burgers"),
       ingredient(some(), "leaves"),
       ingredient(some(), "cucumber"),
-      ingredient(some(), "tomatoes"),
+      ingredient(some(), "tomatoes", fresh),
       ingredient(some(), "sweet potato")
     )
   )
 
   lazy val simple_pinto_wraps: Recipe = Recipe("simple_pinto_wraps",
     List(
-      ingredient(packs(1), "wraps"),
+      ingredient(packs(1), "wraps", store_cupboard),
       ingredient(number(2), "courgettes"),
       ingredient(number(3), "peppers"),
       ingredient(some(), "coriander"),
-      ingredient(tins(2), "tomatoes"),
-      ingredient(tins(2), "pinto beans"),
+      ingredient(tins(2), "tomatoes (chopped)", store_cupboard),
+      ingredient(tins(2), "pinto beans", store_cupboard),
       ingredient(number(2), "avocado")
     )
   )
@@ -155,41 +155,41 @@ object RecipeData {
     List(
       ingredient(packs(2), "beetroot"),
       ingredient(number(1), "fennel"),
-      ingredient(tins(1), "cannelini beans"),
-      ingredient(tsp(4), "stock powder")
+      ingredient(tins(1), "cannelini beans", store_cupboard),
+      ingredient(some(), "stock powder", store_cupboard)
     )
   )
 
   lazy val jackets_with_beans: Recipe = Recipe("jackets_with_beans",
     List(
       ingredient(number(1), "jacket potatoes"),
-      ingredient(tins(1), "haricot beans"),
-      ingredient(tins(1), "passata")
+      ingredient(tins(1), "haricot beans", store_cupboard),
+      ingredient(tins(1), "passata", store_cupboard)
     ))
 
   lazy val pancakes_with_lentils: Recipe = Recipe("pancakes_with_lentils",
     List(
-      ingredient(ml(350), "soya milk"),
-      ingredient(grams(350), "plain flour"),
-      ingredient(tbsp(4), "chickpea/gram flour"),
-      ingredient(tsp(2), "baking powder"),
-      ingredient(grams(200), "red lentils"),
+      ingredient(ml(350), "soya milk", store_cupboard),
+      ingredient(grams(350), "plain flour", store_cupboard),
+      ingredient(tbsp(4), "chickpea/gram flour", store_cupboard),
+      ingredient(tsp(2), "baking powder", store_cupboard),
+      ingredient(grams(200), "red lentils", store_cupboard),
       ingredient(some(), "carrots"),
       ingredient(some(), "celery"),
-      ingredient(tins(2), "passata")
+      ingredient(tins(2), "passata", store_cupboard)
     ))
 
   lazy val butternut_soup: Recipe = Recipe("butternut_squash_soup",
     List(
       ingredient(number(1), "butternut squash"),
-      ingredient(tins(1), "cannelini beans"),
-      ingredient(tsp(4), "stock powder")
+      ingredient(tins(1), "cannelini beans", store_cupboard),
+      ingredient(some(), "stock powder", store_cupboard)
     ))
 
   lazy val fishcakes_chips: Recipe = Recipe("fishcakes_chips",
     List(
-      ingredient(packs(1), "frozen chips", frozen),
-      ingredient(number(4), "frozen fishcakes", frozen),
+      ingredient(packs(1), "chips", frozen),
+      ingredient(number(4), "fishcakes", frozen),
       ingredient(some(), "sweetcorn", frozen),
       ingredient(some(), "peas", frozen)
     ))
@@ -197,8 +197,8 @@ object RecipeData {
   lazy val leek_potato_soup: Recipe = Recipe("leek_potato_soup",
     List(
       ingredient(grams(500), "leeks"),
-      ingredient(grams(1), "potatoes"),
-      ingredient(tsp(4), "stock powder")
+      ingredient(grams(500), "potatoes"),
+      ingredient(some(), "stock powder", store_cupboard)
     ))
 
   val allRecipes = List(
