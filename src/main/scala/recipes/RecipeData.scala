@@ -65,10 +65,9 @@ object RecipeData {
 
   val tofu_noodle_soup: Recipe = Recipe("tofu_noodle_soup",
     List(
-      ingredient(packs(2), "tofu"),
+      ingredient(packs(2), "tofu", refrigerated),
       ingredient(number(2), "wholewheat noodles", store_cupboard),
       ingredient(packs(2), "pak choi"),
-      ingredient(packs(2), "tofu"),
       ingredient(some(), "stock powder", store_cupboard)
 
     ))
@@ -84,11 +83,19 @@ object RecipeData {
 
   val regular_items: Recipe = Recipe("regular_items",
     List(
-      ingredient(some(), "whole_milk"),
-      ingredient(packs(1), "apple"),
-      ingredient(packs(1), "weetabix", store_cupboard)
-      //Tea,
-      //hippy tea
+      ingredient(some(), "whole_milk", refrigerated),
+      ingredient(some(), "apples", fresh),
+      ingredient(some(), "margarine", fresh),
+      ingredient(some(), "pesto (vegan)", store_cupboard),
+      ingredient(some(), "jam", store_cupboard),
+      ingredient(some(), "weetabix", store_cupboard),
+      ingredient(some(), "Tea", store_cupboard),
+      ingredient(some(), "Hippy Tea", store_cupboard),
+      ingredient(some(), "Nappies", non_food),
+      ingredient(some(), "Baby wipes", non_food),
+      ingredient(some(), "sultanas", store_cupboard),
+      ingredient(some(), "porridge", store_cupboard),
+      ingredient(some(), "squash", store_cupboard)
     )
   )
 
@@ -108,30 +115,31 @@ object RecipeData {
 
   lazy val saag_tofu: Recipe = Recipe("saag_tofu",
     List(
-      ingredient(packs(2), "tofu"),
+      ingredient(packs(2), "tofu", refrigerated),
       ingredient(number(1), "onion"),
       ingredient(grams(400), "spinach"), // quantity?
       ingredient(tsp(1), "fresh ginger"),// quantity?
       ingredient(tsp(1), "garam masala", dried),// quantity?
-      ingredient(tsp(5), "vegan yoghurt")// quantity?
+      ingredient(tsp(5), "vegan yoghurt", refrigerated)// quantity?
     )
   )
 
   lazy val stir_fry: Recipe = Recipe("stir_fry",
     List(
       ingredient(packs(1), "noodles", store_cupboard),
-      ingredient(packs(2), "tofu"),
+      ingredient(packs(2), "tofu", refrigerated),
       ingredient(some(), "spring onions"),
       ingredient(some(), "garlic"),
       ingredient(tsp(1), "fresh ginger"),
       ingredient(number(2), "peppers", fresh),
-      ingredient(number(2), "pak choi")
+      ingredient(packs(1), "pak choi")
     )
   )
 
   lazy val burgers: Recipe = Recipe("burgers",
     List(
-      ingredient(number(4), "veggie burgers"),
+      ingredient(number(4), "veggie burgers", refrigerated),
+      ingredient(number(4), "burger buns", store_cupboard),
       ingredient(some(), "leaves"),
       ingredient(some(), "cucumber"),
       ingredient(some(), "tomatoes", fresh),
@@ -169,7 +177,7 @@ object RecipeData {
 
   lazy val pancakes_with_lentils: Recipe = Recipe("pancakes_with_lentils",
     List(
-      ingredient(ml(350), "soya milk", store_cupboard),
+      ingredient(ml(350), "soya milk", refrigerated),
       ingredient(grams(350), "plain flour", store_cupboard),
       ingredient(tbsp(4), "chickpea/gram flour", store_cupboard),
       ingredient(tsp(2), "baking powder", store_cupboard),
@@ -194,11 +202,33 @@ object RecipeData {
       ingredient(some(), "peas", frozen)
     ))
 
-  lazy val leek_potato_soup: Recipe = Recipe("leek_potato_soup",
+  val leek_potato_soup: Recipe = Recipe("leek_potato_soup",
     List(
       ingredient(grams(500), "leeks"),
       ingredient(grams(500), "potatoes"),
       ingredient(some(), "stock powder", store_cupboard)
+    ))
+
+  val quiche: Recipe = Recipe("quiche",
+    List(
+      ingredient(number(2), "leeks", fresh),
+      ingredient(some(), "mushrooms", fresh),
+      ingredient(some(), "shortcut pastry", refrigerated),
+      ingredient(some(), "soya milk", refrigerated),
+      ingredient(some(), "silken tofu", store_cupboard)
+    ))
+
+  val black_bean_burritos: Recipe = Recipe("black_bean_burritos",
+    List(
+      ingredient(number(1), "onions", fresh),
+      ingredient(cloves(2), "garlic", fresh),
+      ingredient(grams(500), "mushrooms", fresh),
+      ingredient(some(), "spinach", frozen),
+      ingredient(tins(2), "black beans", store_cupboard),
+      ingredient(packs(1), "wholemeal tortilla", store_cupboard),
+      ingredient(some(), "cherry tomatoes", fresh),
+      ingredient(tins(2), "parsley", fresh),
+      ingredient(packs(1), "coriander", fresh)
     ))
 
   val allRecipes = List(
@@ -208,7 +238,7 @@ object RecipeData {
     seeded_wholemeal_bread,
     regular_items,
     tofu_noodle_soup,
-    burgers, stir_fry, simple_pinto_wraps, beetroot_soup, leek_potato_soup, fishcakes_chips, jackets_with_beans, pancakes_with_lentils)
+    burgers, stir_fry, simple_pinto_wraps, beetroot_soup, leek_potato_soup, fishcakes_chips, jackets_with_beans, pancakes_with_lentils, quiche, black_bean_burritos)
 
   // convert tsp and tbsp into grams
   // blackbean burritos
