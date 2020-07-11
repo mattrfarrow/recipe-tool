@@ -14,6 +14,8 @@ case class IngredientQuantity(ingredient: Ingredient, quantity: Quantity, freshn
 
 object IngredientQuantity {
 
+  def ingredient(num: Int, name: String) = IngredientQuantity(Ingredient(Seq(name)), Quantity.number(num), Freshness.fresh)
   def ingredient(quantity: Quantity, name: String) = IngredientQuantity(Ingredient(Seq(name)), quantity, Freshness.fresh)
+  def ingredient(num: Int, name: String, freshness: Freshness) = IngredientQuantity(Ingredient(Seq(name)), Quantity.number(num), freshness)
   def ingredient(quantity: Quantity, name: String, freshness: Freshness) = IngredientQuantity(Ingredient(Seq(name)), quantity, freshness)
 }
