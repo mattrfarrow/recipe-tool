@@ -265,7 +265,7 @@ object RecipeData {
       ingredient(tbsp(1), "pine nuts", store_cupboard)
     ))
 
-  // BBCGF July p44, with greens and new potatoes
+  // BBCGF July p44, good with greens and new potatoes
   val sausage_cassoulet: Recipe = Recipe("sausage_cassoulet",
     List(
       ingredient(number(12), "veggie sausages", frozen),
@@ -283,6 +283,7 @@ object RecipeData {
       ingredient(tbsp, "red wine vinegar", store_cupboard)
     )
   )
+
   //  BBCGF July p61
   val puff_pastry_pizzas: Recipe = Recipe("puff_pastry_pizzas",
     List(
@@ -327,7 +328,7 @@ object RecipeData {
       ingredient(1, "lemon")
     ))
 
-  // BBCGF July p73
+  // BBCGF July p73, with gremolata
   val chickpea_soup: Recipe = Recipe("chickpea_soup",
   List(
     ingredient(tbsp(2), "oil", store_cupboard),
@@ -347,6 +348,27 @@ object RecipeData {
     ingredient(some, "smoked paprika")
   ))
 
+  // BBCGF July p90
+  val broad_bean_risotto: Recipe = Recipe("broad_bean_risotto",
+    List(
+      ingredient(tbsp(3), "olive oil", store_cupboard),
+      ingredient(2, "courgettes"),
+      ingredient(some, "chilli flakes", spice_rack),
+      ingredient(some, "nutmeg", spice_rack),
+      ingredient(2, "spring onions"),
+      ingredient(1, "lemons"),
+      ingredient(grams(150), "risotto rice", store_cupboard),
+      ingredient(ml(75), "dry white wine", drinks),
+      ingredient(ml(750), "stock", store_cupboard),
+      ingredient(grams(80), "broad beans"),
+      ingredient(grams(20), "parmesan", refrigerated),
+      ingredient(clove, "garlic"),
+      ingredient(tbsp, "pine nuts", store_cupboard),
+      ingredient(some, "basil leaves"),
+      ingredient(some, "mint leaves")
+    )
+  )
+
   val allRecipes = List(
     breakfast,
     chickpea_curry, chilli, aubergine_casserole,
@@ -356,16 +378,12 @@ object RecipeData {
     tofu_noodle_soup,
     burgers, stir_fry, simple_pinto_wraps, beetroot_soup, leek_potato_soup, fishcakes_chips, jackets_with_beans, pancakes_with_lentils, quiche, black_bean_burritos,
     vegan_burger, broccoli_and_pea_soup,
-    sausage_cassoulet, courgette_fritters, puff_pastry_pizzas, tomato_soup, chickpea_soup)
+    sausage_cassoulet, courgette_fritters, puff_pastry_pizzas, tomato_soup, chickpea_soup, broad_bean_risotto)
 
   // be able to specify ingredients on the command line too so the list can add veg as sides to meals for example
 
   // convert tsp and tbsp into grams
-  // blackbean burritos
-  // account for how some of these recipes get doubled
-  // side veg?
-  // add carbs
+  // account for how some of these recipes get doubled (incorrectly?)
   // convert ml into litres?
-  // make regular items make sense
 
 }

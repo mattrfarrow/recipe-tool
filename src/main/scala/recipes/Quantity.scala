@@ -30,4 +30,5 @@ object Quantity {
   def packs(g: Double): Quantity = Quantity(g, MeasurementUnit.packs)
 
   def cloves(n: Int): Quantity = Quantity(n, MeasurementUnit.clove)
+  def clove: Quantity = Quantity(1, MeasurementUnit.clove)
 }
